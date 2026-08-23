@@ -6,6 +6,7 @@ describe('Student', () => {
 		const student = createStudent({
 			name: 'Mahardika',
 			phone: '081234567890',
+			classId: 'class-123',
 		});
 
 		expect(student.id).toBeDefined();
@@ -21,6 +22,7 @@ describe('Student', () => {
 			createStudent({
 				name: '',
 				phone: '081234567890',
+				classId: 'class-123',
 			});
 		}).toThrow();
 	});
@@ -30,6 +32,7 @@ describe('Student', () => {
 			createStudent({
 				name: '   ',
 				phone: '081234567890',
+				classId: 'class-123',
 			});
 		}).toThrow();
 	});
@@ -39,6 +42,17 @@ describe('Student', () => {
 			createStudent({
 				name: 'Mahardika',
 				phone: '',
+				classId: 'class-123',
+			});
+		}).toThrow();
+	});
+
+	it('rejects an empty classId', () => {
+		expect(() => {
+			createStudent({
+				name: 'Mahardika',
+				phone: '081234567890',
+				classId: '',
 			});
 		}).toThrow();
 	});
@@ -47,6 +61,7 @@ describe('Student', () => {
 		const student = createStudent({
 			name: 'Mahardika',
 			phone: '081234567890',
+			classId: 'class-123',
 			email: 'mahardika@example.com',
 		});
 
@@ -57,8 +72,18 @@ describe('Student', () => {
 		const student = createStudent({
 			name: '   Mahardika   ',
 			phone: '  081234567890  ',
+			classId: ' class-123 ',
 		});
 		expect(student.name).toBe('Mahardika');
 		expect(student.phone).toBe('081234567890');
+	});
+
+	it('assigns a class to a student', () => {
+		const student = createStudent({
+			name: 'Mahardika',
+			phone: '081234567890',
+			classId: 'class-123',
+		});
+		expect(student.classId).toBe('class-123');
 	});
 });

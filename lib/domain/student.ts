@@ -6,6 +6,7 @@ export interface Student {
 	phone: string;
 	email?: string;
 	status: StudentStatus;
+	classId: string;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -13,6 +14,7 @@ export interface Student {
 interface CreateStudentInput {
 	name: string;
 	phone: string;
+	classId: string;
 	email?: string;
 }
 
@@ -24,6 +26,11 @@ export function createStudent(input: CreateStudentInput): Student {
 	if (!input.phone.trim()) {
 		throw new Error('Student phone is required');
 	}
+
+	if (!input.classId.trim()) {
+		throw new Error('Class is required');
+	}
+
 	const now = new Date();
 
 	return {
@@ -32,6 +39,7 @@ export function createStudent(input: CreateStudentInput): Student {
 		phone: input.phone.trim(),
 		email: input.email?.trim() || undefined,
 		status: 'ACTIVE',
+		classId: input.classId.trim(),
 		createdAt: now,
 		updatedAt: now,
 	};

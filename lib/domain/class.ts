@@ -1,8 +1,10 @@
 export type ClassStatus = 'ACTIVE' | 'INACTIVE';
+export type ClassType = 'PRIVATE' | 'GROUP';
 
 export interface Class {
 	id: string;
 	name: string;
+	type: ClassType;
 	description?: string;
 	status: ClassStatus;
 	createdAt: Date;
@@ -12,6 +14,7 @@ export interface Class {
 interface CreateClassInput {
 	name: string;
 	description?: string;
+	type?: ClassType;
 }
 
 export function createClass(input: CreateClassInput): Class {
@@ -25,6 +28,7 @@ export function createClass(input: CreateClassInput): Class {
 		id: crypto.randomUUID(),
 		name: input.name.trim(),
 		description: input.description?.trim() || undefined,
+		type: input.type ?? 'GROUP',
 		status: 'ACTIVE',
 		createdAt: now,
 		updatedAt: now,
