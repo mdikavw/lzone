@@ -17,6 +17,33 @@ describe('Student', () => {
 		expect(student.updatedAt).toBeInstanceOf(Date);
 	});
 
+	it('creates a student with monthly billing by default', () => {
+		const student = createStudent({
+			name: 'Budi',
+			phone: '081234567890',
+			classId: 'class-123',
+		});
+
+		expect(student.name).toBe('Budi');
+		expect(student.phone).toBe('081234567890');
+		expect(student.classId).toBe('class-123');
+		expect(student.billingType).toBe('MONTHLY');
+	});
+
+	it('creates a student with per-session billing', () => {
+		const student = createStudent({
+			name: 'Andi',
+			phone: '081122334455',
+			classId: 'class-123',
+			billingType: 'PER_SESSION',
+		});
+
+		expect(student.name).toBe('Andi');
+		expect(student.phone).toBe('081122334455');
+		expect(student.classId).toBe('class-123');
+		expect(student.billingType).toBe('PER_SESSION');
+	});
+
 	it('rejects an empty name', () => {
 		expect(() => {
 			createStudent({

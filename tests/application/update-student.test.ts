@@ -11,6 +11,7 @@ const student: Student = {
 	phone: '081234567890',
 	status: 'ACTIVE',
 	classId: 'class-123',
+	billingType: 'MONTHLY',
 	createdAt: new Date(),
 	updatedAt: new Date(),
 };

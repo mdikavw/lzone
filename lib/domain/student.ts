@@ -1,4 +1,5 @@
 export type StudentStatus = 'ACTIVE' | 'INACTIVE';
+export type BillingType = 'MONTHLY' | 'PER_SESSION';
 
 export interface Student {
 	id: string;
@@ -7,6 +8,7 @@ export interface Student {
 	email?: string;
 	status: StudentStatus;
 	classId: string;
+	billingType: BillingType;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -16,6 +18,7 @@ interface CreateStudentInput {
 	phone: string;
 	classId: string;
 	email?: string;
+	billingType?: BillingType;
 }
 
 export function createStudent(input: CreateStudentInput): Student {
@@ -40,6 +43,7 @@ export function createStudent(input: CreateStudentInput): Student {
 		email: input.email?.trim() || undefined,
 		status: 'ACTIVE',
 		classId: input.classId.trim(),
+		billingType: input.billingType ?? 'MONTHLY',
 		createdAt: now,
 		updatedAt: now,
 	};

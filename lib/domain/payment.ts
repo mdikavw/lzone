@@ -13,6 +13,7 @@ interface CreatePaymentInput {
 	studentId: string;
 	amount: number;
 	paymentPeriod: Date;
+	paidAt: Date;
 	description?: string;
 }
 
