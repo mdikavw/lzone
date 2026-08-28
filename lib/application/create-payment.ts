@@ -31,7 +31,8 @@ export async function createPayment(
 	period.setDate(1);
 	const studentPaymentThisPeriod =
 		await paymentRepository.findByStudentAndPeriod(student.id, period);
-	if (studentPaymentThisPeriod) throw new Error('Payment already exists');
+	if (studentPaymentThisPeriod.length > 0)
+		throw new Error('Payment already exists');
 	const payment = createPaymentDomain(input);
 	return paymentRepository.create(payment);
 }
