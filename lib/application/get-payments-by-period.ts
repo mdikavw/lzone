@@ -1,4 +1,3 @@
-import { getPaymentsByPeriod } from '@/lib/application/get-payments-by-period';
 import { PaymentRepository } from '../repositories/payment-repository';
 import { Payment } from '../domain/payment';
 
