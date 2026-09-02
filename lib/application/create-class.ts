@@ -4,7 +4,7 @@ import { createClass as createClassDomain } from '../domain/class';
 
 interface CreateClassInput {
 	name: string;
-	type: ClassType;
+	type?: ClassType;
 	description?: string | undefined;
 }
 
