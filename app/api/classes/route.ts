@@ -1,4 +1,5 @@
 import { createClass } from '@/lib/application/create-class';
+import { getClass } from '@/lib/application/get-class';
 import { getClasses } from '@/lib/application/get-classes';
 import { SupabaseClassRepository } from '@/lib/infrastructure/supabase/class-repository';
 import { supabase } from '@/lib/infrastructure/supabase/client';
