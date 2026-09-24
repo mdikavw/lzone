@@ -23,6 +23,12 @@ import type { Class } from '@/lib/domain/class';
 const supabaseUrl = process.env.SUPABASE_TEST_URL!;
 const supabaseKey = process.env.SUPABASE_TEST_PUBLISHABLE_KEY!;
 
+console.log('SUPABASE_TEST_URL:', process.env.SUPABASE_TEST_URL);
+console.log(
+	'HAS_SUPABASE_TEST_KEY:',
+	Boolean(process.env.SUPABASE_TEST_PUBLISHABLE_KEY),
+);
+
 let supabase: SupabaseClient;
 let repository: SupabaseClassRepository;
 
@@ -104,7 +110,7 @@ describe('SupabaseClassRepository — essential', () => {
 		await insertClassRow(b);
 
 		const result = await repository.findAll();
-		const ids = result.map(c => c.id);
+		const ids = result.map((c) => c.id);
 
 		// Ordering is not part of the contract, so only membership is checked.
 		expect(ids).toContain(a.id);
@@ -121,7 +127,7 @@ describe('SupabaseClassRepository — essential', () => {
 		await insertClassRow(inactive);
 
 		const result = await repository.findActive();
-		const ids = result.map(c => c.id);
+		const ids = result.map((c) => c.id);
 
 		expect(ids).toContain(active.id);
 		expect(ids).toContain(alsoActive.id);
@@ -189,7 +195,7 @@ describe('SupabaseClassRepository — essential', () => {
 		// Remove from tracked cleanup ids: the row is already gone, and
 		// re-deleting a nonexistent id in afterEach is unnecessary (though
 		// not harmful either way).
-		createdClassIds = createdClassIds.filter(id => id !== classEntity.id);
+		createdClassIds = createdClassIds.filter((id) => id !== classEntity.id);
 
 		const fetched = await repository.findById(classEntity.id);
 		expect(fetched).toBeNull();

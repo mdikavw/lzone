@@ -1,3 +1,4 @@
+import { deleteClass } from '@/lib/application/delete-class';
 import { getClass } from '@/lib/application/get-class';
 import { updateClass } from '@/lib/application/update-class';
 import { SupabaseClassRepository } from '@/lib/infrastructure/supabase/class-repository';
@@ -56,6 +57,25 @@ export async function PUT(
 		if (error instanceof SyntaxError)
 			return Response.json({ error: 'Invalid JSON' }, { status: 400 });
 
+		return Response.json(
+			{ error: 'Internal server error' },
+			{ status: 500 },
+		);
+	}
+}
+
+export async function DELETE(
+	request: Request,
+	{ params }: { params: Promise<{ id: string }> },
+) {
+	const { id } = await params;
+	try {
+		await deleteClass(id, { classRepository });
+		return new Response(null, { status: 204 });
+	} catch (error) {
+		if (error instanceof Error && error.message === 'Class not found') {
+			return Response.json({ error: 'Class not found' }, { status: 404 });
+		}
 		return Response.json(
 			{ error: 'Internal server error' },
 			{ status: 500 },
