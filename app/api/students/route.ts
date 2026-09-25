@@ -1,5 +1,6 @@
 import { createStudent } from '@/lib/application/create-student';
 import { getClass } from '@/lib/application/get-class';
+import { getStudents } from '@/lib/application/get-students';
 import { SupabaseClassRepository } from '@/lib/infrastructure/supabase/class-repository';
 import { supabase } from '@/lib/infrastructure/supabase/client';
 import { SupabaseStudentRepository } from '@/lib/infrastructure/supabase/student-repository';
@@ -44,6 +45,20 @@ export async function POST(request: Request) {
 				{ status: 400 },
 			);
 		}
+		return Response.json(
+			{ error: 'Internal server error' },
+			{ status: 500 },
+		);
+	}
+}
+
+export async function GET(request: Request) {
+	try {
+		const students = await getStudents({
+			studentRepository,
+		});
+		return Response.json(students, { status: 200 });
+	} catch (error) {
 		return Response.json(
 			{ error: 'Internal server error' },
 			{ status: 500 },
